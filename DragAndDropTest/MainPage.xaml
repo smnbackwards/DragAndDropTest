@@ -10,6 +10,18 @@
     <Page.Resources>
         <CollectionViewSource x:Name="categoryCollectionViewSource" IsSourceGrouped="True" ItemsPath="BookList"/>
         <CollectionViewSource x:Name="bookCollectionViewSource"/>
+
+        <DataTemplate x:Key="categoryItemTemplate">
+            <StackPanel Orientation="Vertical" Margin="0" HorizontalAlignment="Left" Width="200">
+                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Author}" />
+                <TextBlock Text="{Binding Price}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="categoryItemPanelTemplate">
+            <StackPanel Orientation="Horizontal"></StackPanel>
+        </ItemsPanelTemplate>
     </Page.Resources>
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
@@ -18,8 +30,9 @@
                                   ItemsSource="{Binding Source={StaticResource categoryCollectionViewSource}, Mode=TwoWay}"
                                   Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
                                   ItemTemplate="{StaticResource categoryItemTemplate}"
-                                  ItemsPanel="{StaticResource categoryItemPanelTemplate}"                                                             
-                                  SelectionMode="None" HorizontalAlignment="Left"
+                                  ItemsPanel="{StaticResource categoryItemPanelTemplate}"   
+                                  SelectionMode="Multiple" IsSwipeEnabled="True"
+                                  HorizontalAlignment="Left"
                                   CanDragItems="True"
                                   DragItemsStarting="ItemsByCategory_DragItemsStarting">
                 <GridView.GroupStyle>
@@ -31,7 +44,7 @@
                                 </Grid>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
-                        <GroupStyle.ContainerStyle>
+                    <GroupStyle.ContainerStyle>
                             <Style TargetType="GroupItem">
                                 <Setter Property="FontFamily" Value="Segoe UI" />
                                 <Setter Property="Padding" Value="0" />
